@@ -2,10 +2,41 @@ import React from "react"
 import Layout from "../components/layout"
 import { Link } from "gatsby"
 import PostList from "../components/PostList"
-export default () => (
-<Layout>Hello world!
-  <div>
-    <PostList/>
-  </div>
+import { graphql, useStaticQuery } from "gatsby"
+
+const getPosts = graphql`
+{
+  allMdx (sort: {fields:frontmatter___date, order: DESC}) {
+    totalCount
+    edges {
+      node {
+        frontmatter {
+          title
+          slug
+          date (formatString: "MMMM do, YYYY")
+          author
+          image {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+            }
+          }
+        }
+        excerpt
+      }
+    }
+  }
+}
+
+`
+
+export default () => {
+const response = useStaticQuery(getPosts);
+const posts = response.allMdx.edges
+return (
+  <Layout>
+    <PostList posts={posts} />
   </Layout>
-)
+  )
+}

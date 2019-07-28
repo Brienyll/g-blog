@@ -1,13 +1,19 @@
 import React from 'react'
-import POstCard from "./PostCard"
 import PostCard from './PostCard';
+import styles from "../css/postlist.module.css"
 
-const PostList = () => {
+const PostList = ({ posts }) => {
+  console.log(posts);
   return (
-    <div>
-      Post List
-      <PostCard />
-    </div>
+    <section className={styles.posts}>
+      <h1> Brix </h1>
+      <h4> Blog </h4>
+      <div className={styles.center}>
+      {posts.map(({node}, index) => {
+          return <PostCard key={index} post={node} />
+        })}
+      </div>
+    </section>
   )
 }
 
