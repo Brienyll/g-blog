@@ -6,7 +6,7 @@ module.exports = {
         name: `posts`,
         path: `src/posts/`,
       },
-    }
+    },
     `gatsby-plugin-mdx`,
     `gatsby-transformer-sharp`, 
     `gatsby-plugin-sharp`
