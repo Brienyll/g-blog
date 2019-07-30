@@ -1,6 +1,5 @@
 import React from "react"
 import Layout from "../components/layout"
-import { Link } from "gatsby"
 import PostList from "../components/PostList"
 import { graphql, useStaticQuery } from "gatsby"
 
@@ -13,7 +12,7 @@ const getPosts = graphql`
         frontmatter {
           title
           slug
-          date (formatString: "MMMM do, YYYY")
+          date (formatString: "MMMM DD, YYYY")
           author
           image {
             childImageSharp {
