@@ -5,13 +5,47 @@ import Img from "gatsby-image"
 import Layout from "../components/layout"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
-const postTemplate = ({ pageContext }) => {
-  console.log(pageContext)
+const postTemplate = ({data}) => {
+  const { title, date, author, image } = data.mdx.frontmatter;
+  const img = image.childImageSharp.fluid
   return (
-    <div>
-      post template
-    </div>
+    <Layout>
+      <section className={styles.template}>
+        <Link to="/" className={styles.link}> back to posts </Link>
+        <div className={styles.info}>
+          <h1>{ title }</h1>
+          <h4>
+            <span>by { author }</span> / <span>{ date }</span>
+          </h4>
+        </div>
+        <Img fluid={ img } />
+        <div className={styles.content}>
+          <MDXRenderer>{ data.mdx.body }</MDXRenderer>
+        </div>
+      </section>
+    </Layout>
   )
 }
+
+export const query = graphql`
+query getPost($slug:String!){
+  mdx (frontmatter:{slug:{eq:$slug}}){
+    frontmatter {
+      title
+      slug
+      date(formatString: "MMM Do, YYYY")
+      author
+      image {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp
+          }
+        }
+      }
+    }
+    body
+  }
+}
+`
 
 export default postTemplate
