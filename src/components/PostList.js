@@ -7,7 +7,8 @@ const PostList = ({ posts }) => {
   return (
     <section className={styles.posts} lang="es">
       <Helmet>
-        <meta charSet="utf-8" name="Brix Blog" content="Daily Blog*"/>
+        <meta charSet="utf-8"/>
+        <meta name="Brix Blog" content="Daily Blog"/>
         <title>Brix Blog</title>
         <link rel="canonical" href="https://gblog29.netlify.com/" />
       </Helmet>
